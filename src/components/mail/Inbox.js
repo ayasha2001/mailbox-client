@@ -41,15 +41,6 @@ const Inbox = () => {
 
       {emails.map((email) => (
         <InboxItem email={email} />
-        //   <li key={email.id} className="email-item">
-        //     <div className="sender-info">
-        //       <strong>{email.senderName}</strong>
-        //     </div>
-        //     <div className="email-content">
-        //       <p className="email-subject">{email.subject}</p>
-        //       <p className="email-body">{email.emailBody}</p>
-        //     </div>
-        //   </li>
       ))}
     </div>
   );
