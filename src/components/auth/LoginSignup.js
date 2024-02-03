@@ -80,8 +80,11 @@ const LoginSignup = () => {
   
       const jsonData = await response.json(); // Store the result in a variable
       console.log("Login successful:", jsonData.idToken);
+      console.log("Login successful:", jsonData.email);
       
       localStorage.setItem("token", jsonData.idToken);
+      localStorage.setItem("userName", jsonData.email);
+
       nav("/mail");
       setEmail("");
       setPassword("");

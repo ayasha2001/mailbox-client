@@ -1,0 +1,57 @@
+.compose-mail-container {
+  background-color: #fff;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-top: 20px;
+}
+
+.compose-mail-editor-wrapper {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.compose-mail-editor {
+  padding: 10px;
+  min-height: 200px;
+}
+.compose-mail-container .left-aligned {
+  text-align: left;
+}
+.label-style {
+  color: gray;
+  margin-right: 5px;
+}
+.input-style {
+  border: 0px;
+  margin-bottom: 10px;
+  height: 28px;
+  text-size-adjust: auto;
+}
+hr {
+  border-color: pink;
+  border: 1px solid rgb(221, 218, 218);
+}
+
+/* ComposeMail.css */
+.compose-mail-editor-wrapper {
+  position: relative;
+}
+
+.rdw-editor-toolbar {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  background-color: #f9f9f9; /* Optional: Add background color for better visibility */
+}
+.btn-send{
+    background-color: rgb(4, 123, 203);
+    color: white;
+    font-family: sans-serif;
+    font-weight: bold;
+    border: 0px;
+    border-radius: 5px;
+    margin-top: 10px;
+    height: 30px;
+}

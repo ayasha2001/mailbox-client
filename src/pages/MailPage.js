@@ -1,8 +1,11 @@
 import React from 'react'
+import ComposeMail from '../components/mail/ComposeMail'
 
 const MailPage = () => {
   return (
-    <div>MailPage</div>
+    <div>
+        <ComposeMail/>
+    </div>
   )
 }
 
