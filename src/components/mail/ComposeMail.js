@@ -59,6 +59,7 @@ const ComposeMail = () => {
       emailBody: emailBodyText,
       date: formattedDate,
       time: formattedTime,
+      read:false
     };
 
     // Add your email sending logic here

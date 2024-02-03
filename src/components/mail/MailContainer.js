@@ -1,6 +1,8 @@
-import React from 'react';
-import Sidebar from './SideBar';
-import Inbox from './Inbox';
+import React from "react";
+import Sidebar from "./SideBar";
+import Inbox from "./Inbox";
+import OpenedMail from "./OpenedMail";
+import { Outlet } from "react-router-dom";
 
 const MailContainer = () => {
   return (
@@ -8,12 +10,7 @@ const MailContainer = () => {
       <div className="row">
         <Sidebar />
         <main role="main" className="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-            <Inbox/>
-          {/* <Switch>
-            <Route path="/inbox" component={Inbox} />
-            <Route path="/sent" component={Sent} />
-            <Route path="/drafts" component={Drafts} />
-          </Switch> */}
+            <Outlet/>
         </main>
       </div>
     </div>

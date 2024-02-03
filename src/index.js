@@ -6,6 +6,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AuthPage from "./pages/AuthPage";
 import MailPage from "./pages/MailPage";
 import ComposePage from "./pages/ComposePage";
+import Inbox from "./components/mail/Inbox";
+import OpenedMail from "./components/mail/OpenedMail";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const router = createBrowserRouter([
@@ -20,6 +22,16 @@ const router = createBrowserRouter([
       {
         path: "/mail",
         element: <MailPage />,
+        children:[
+          {
+            index: true,
+            element: <Inbox />,
+          },
+          {
+            path: "/mail",
+            element: <OpenedMail />,
+          },
+        ]
       },
       {
         path: "/compose",
