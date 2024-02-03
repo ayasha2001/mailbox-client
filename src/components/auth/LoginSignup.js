@@ -11,6 +11,8 @@ const LoginSignup = () => {
   const [cnfPasword, setCnfPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const nav = useNavigate()
+
   let headingText = "SignUp";
   let subBtnText = "Sign up";
   let btnText = "Have an account? Login";
@@ -52,6 +54,44 @@ const LoginSignup = () => {
     }
   };
 
+  const handleLogin = async () => {
+    try {
+      const response = await fetch(
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDqZwDjnF43ZY2c_T6j07yTFfJsQ1_09Rc",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            email: email,
+            password: password,
+            returnSecureToken: true,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Login failed:", errorData.error.message);
+        setErrorMessage(errorData.error.message);
+        return;
+      }
+  
+      const jsonData = await response.json(); // Store the result in a variable
+      console.log("Login successful:", jsonData.idToken);
+      
+      localStorage.setItem("token", jsonData.idToken);
+      nav("/mail");
+      setEmail("");
+      setPassword("");
+      setErrorMessage("");
+    } catch (error) {
+      console.error("Login error:", error.message);
+    }
+  };
+  
+
   const handleFormSubmit = (event) => {
     event.preventDefault();
     if (isSignup && password !== cnfPasword) {
@@ -60,10 +100,9 @@ const LoginSignup = () => {
     }
     if (isSignup) {
       handleSignUp();
+    } else {
+      handleLogin();
     }
-    // else {
-    //   handleLogin();
-    // }
   };
 
   const handleAuthSubmit = () => {

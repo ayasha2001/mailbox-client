@@ -3,7 +3,8 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
+import AuthPage from "./pages/AuthPage";
+import MailPage from "./pages/MailPage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const router = createBrowserRouter([
@@ -11,11 +12,15 @@ const router = createBrowserRouter([
     path: "/",
     element: <App />,
     children: [
-      // {
-      //   path: "/",
-      //   element: <AuthPage />,
-      // },
-      
+      {
+        path: "/",
+        element: <AuthPage />,
+      },
+      {
+        path: "/mail",
+        element: <MailPage />,
+      },
+
       // {
       //   path: "/profile",
       //   element: <CompleteProfile />,
