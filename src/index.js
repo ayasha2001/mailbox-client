@@ -5,6 +5,7 @@ import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AuthPage from "./pages/AuthPage";
 import MailPage from "./pages/MailPage";
+import ComposePage from "./pages/ComposePage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const router = createBrowserRouter([
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: "/mail",
         element: <MailPage />,
+      },
+      {
+        path: "/compose",
+        element: <ComposePage />,
       },
 
       // {

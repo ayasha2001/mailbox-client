@@ -14,32 +14,30 @@ const ComposeMail = () => {
     setEditorState(state);
   };
 
-  const fetchData = async () => {
-    try {
-      const databaseUrl =
-        "https://react-ecom-bootstrap-default-rtdb.asia-southeast1.firebasedatabase.app";
-      const response = await fetch(`${databaseUrl}/mail.json`);
+    const fetchData = async () => {
+      try {
+        const databaseUrl =
+          "https://react-ecom-bootstrap-default-rtdb.asia-southeast1.firebasedatabase.app";
+        const response = await fetch(`${databaseUrl}/mail.json`);
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+
+        const data = await response.json();
+        console.log(data);
+
+        const filteredData = Object.values(data).filter(
+          (item) => item.recipientName === "test@gmail.com"
+        );
+
+        console.log(filteredData);
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
       }
+    };
 
-      const data = await response.json();
-      console.log(data);
-
-      const filteredData = Object.values(data).filter(
-        (item) => item.recipientName === "test@gmail.com"
-      );
-
-      console.log(filteredData);
-    } catch (error) {
-      console.error("Error fetching data:", error.message);
-    }
-  };
-
-  fetchData();
-
-  fetchData();
+    fetchData();
 
   const sendEmail = async () => {
     const contentState = editorState.getCurrentContent();
@@ -51,11 +49,16 @@ const ComposeMail = () => {
       .join("\n");
 
     const userName = await localStorage.getItem("userName");
+    const currentDate = new Date();
+    const formattedDate = currentDate.toLocaleDateString();
+    const formattedTime = currentDate.toLocaleTimeString();
     const data = {
       senderName: userName,
       recipientName: recipient,
       subject: subject,
       emailBody: emailBodyText,
+      date: formattedDate,
+      time: formattedTime,
     };
 
     // Add your email sending logic here

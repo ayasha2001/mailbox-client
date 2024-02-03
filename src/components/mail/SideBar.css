@@ -1,0 +1,46 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    padding: 20px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 120px;
+  }
+  
+  .sidebar-sticky {
+    position: relative;
+    top: 0;
+    height: calc(100vh - 48px);
+    padding-top: 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  
+  .sidebar-sticky::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .sidebar-sticky::-webkit-scrollbar-thumb {
+    background-color: #007bff;
+  }
+  
+  .sidebar-sticky a {
+    display: block;
+    padding: 10px 20px;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .sidebar-sticky a:hover {
+    color: #007bff;
+  }
+  
+  .sidebar-sticky .active {
+    color: #007bff;
+  }
+  
+  /* Customize styling based on your preferences */
+  
