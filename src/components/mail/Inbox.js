@@ -9,6 +9,7 @@ const Inbox = () => {
   const navigate = useNavigate();
 
   const fetchEmails = async () => {
+    console.log("fetched");
     try {
       const databaseUrl =
         "https://react-ecom-bootstrap-default-rtdb.asia-southeast1.firebasedatabase.app";
@@ -18,14 +19,13 @@ const Inbox = () => {
         throw new Error("Failed to fetch data");
       }
 
-      const userName = await localStorage.getItem("userName")
+      const userName = await localStorage.getItem("userName");
       const data = await response.json();
 
       const filteredData = Object.entries(data)
         .filter(([key, item]) => item.recipientName === userName)
         .map(([id, item]) => ({ id, ...item }));
 
-      console.log(filteredData);
       setEmails(filteredData);
     } catch (error) {
       console.error("Error fetching data:", error.message);
@@ -34,7 +34,14 @@ const Inbox = () => {
 
   useEffect(() => {
     fetchEmails();
-  }, []);
+
+    const intervalId = setInterval(() => {
+      fetchEmails();
+    }, 2000);
+
+    return () => clearInterval(intervalId);
+  }, [emails]);
+
   const handleEmailClick = (email) => {
     setSelectedEmail(email);
   };
