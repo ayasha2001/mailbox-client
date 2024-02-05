@@ -1,11 +1,19 @@
 import React from "react";
+import DeleteIc from "../assets/DeleteIc";
 
-const InboxItem = ({ email, onClick, markAsRead }) => {
-  console.log(email)
-  const handleItemClick = () => {
+const InboxItem = ({ email, onClick, markAsRead, handleDelete }) => {
+  const handleItemClick = (event) => {
+    event.stopPropagation();
     onClick(email);
     markAsRead(email);
   };
+
+  const onDelete = (event) => {
+    event.stopPropagation();
+    console.log("Delete Clicked!");
+    handleDelete(email);
+  };
+
   return (
     <>
       <div
@@ -30,7 +38,18 @@ const InboxItem = ({ email, onClick, markAsRead }) => {
         <span style={{ fontWeight: "bold", width: "20%" }}>
           {email.subject}
         </span>
-        <span>{email.emailBody}</span>
+        <span
+          style={{
+            width: "50%",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+            maxHeight: "3.6em",
+          }}
+        >
+          {email.emailBody}
+        </span>{" "}
+        <DeleteIc handleDelete={onDelete} />
       </div>
       <hr style={{ marginLeft: "130px" }} />
     </>

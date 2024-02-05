@@ -19,7 +19,6 @@ const Inbox = () => {
       }
 
       const data = await response.json();
-      console.log(data);
 
       const filteredData = Object.entries(data)
         .filter(([key, item]) => item.recipientName === "test@gmail.com")
@@ -77,6 +76,29 @@ const Inbox = () => {
     }
   };
 
+  const handleDelete = async (email) => {
+    const emailId = email.id;
+    try {
+      const databaseUrl =
+        "https://react-ecom-bootstrap-default-rtdb.asia-southeast1.firebasedatabase.app";
+
+      const response = await fetch(`${databaseUrl}/mail/${emailId}.json`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete email");
+      }
+
+      fetchEmails();
+    } catch (error) {
+      console.error("Error deleting email:", error.message);
+    }
+  };
+
   if (selectedEmail) {
     console.log(selectedEmail);
     return (
@@ -94,6 +116,7 @@ const Inbox = () => {
           email={email}
           onClick={handleEmailClick}
           markAsRead={markAsRead}
+          handleDelete={handleDelete}
         />
       ))}
     </div>
