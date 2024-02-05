@@ -1,49 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import InboxItem from "./InboxItem";
 import OpenedMail from "./OpenedMail";
 import { useNavigate } from "react-router-dom";
+import useMailApi from "../../hooks/useMailApi";
 
 const Inbox = () => {
-  const [emails, setEmails] = useState([]);
-  const [selectedEmail, setSelectedEmail] = useState(null);
+  const { emails, unreadCount, markAsRead, deleteEmail } = useMailApi();
+  const [selectedEmail, setSelectedEmail] = React.useState(null);
   const navigate = useNavigate();
-
-  const fetchEmails = async () => {
-    console.log("fetched");
-    try {
-      const databaseUrl =
-        "https://react-ecom-bootstrap-default-rtdb.asia-southeast1.firebasedatabase.app";
-      const response = await fetch(`${databaseUrl}/mail.json`);
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
-      }
-
-      const userName = await localStorage.getItem("userName");
-      const data = await response.json();
-
-      const filteredData = Object.entries(data)
-        .filter(([key, item]) => item.recipientName === userName)
-        .map(([id, item]) => ({ id, ...item }));
-
-      setEmails(filteredData);
-    } catch (error) {
-      console.error("Error fetching data:", error.message);
-    }
-  };
-
-  useEffect(() => {
-    fetchEmails();
-
-    const intervalId = setInterval(() => {
-      fetchEmails();
-    }, 2000);
-
-    return () => clearInterval(intervalId);
-  }, [emails]);
 
   const handleEmailClick = (email) => {
     setSelectedEmail(email);
+    markAsRead(email);
   };
 
   const handleBackToInbox = () => {
@@ -51,64 +19,7 @@ const Inbox = () => {
     navigate("/mail");
   };
 
-  const markAsRead = async (email) => {
-    const emailId = email.id;
-    try {
-      const databaseUrl =
-        "https://react-ecom-bootstrap-default-rtdb.asia-southeast1.firebasedatabase.app";
-      const data = {
-        date: email.date,
-        emailBody: email.emailBody,
-        read: true,
-        recipientName: email.recipientName,
-        senderName: email.senderName,
-        subject: email.subject,
-        time: email.time,
-      };
-
-      const response = await fetch(`${databaseUrl}/mail/${emailId}.json`, {
-        method: "PUT", // Change PATCH to PUT
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to mark email as read");
-      }
-
-      fetchEmails();
-    } catch (error) {
-      console.error("Error marking email as read:", error.message);
-    }
-  };
-
-  const handleDelete = async (email) => {
-    const emailId = email.id;
-    try {
-      const databaseUrl =
-        "https://react-ecom-bootstrap-default-rtdb.asia-southeast1.firebasedatabase.app";
-
-      const response = await fetch(`${databaseUrl}/mail/${emailId}.json`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to delete email");
-      }
-
-      fetchEmails();
-    } catch (error) {
-      console.error("Error deleting email:", error.message);
-    }
-  };
-
   if (selectedEmail) {
-    console.log(selectedEmail);
     return (
       <OpenedMail email={selectedEmail} onBackToInbox={handleBackToInbox} />
     );
@@ -116,15 +27,15 @@ const Inbox = () => {
 
   return (
     <div className="inbox-container">
-      <h2 className="inbox-header">Inbox</h2>
+      <h2 className="inbox-header">Inbox </h2>
 
       {emails.map((email) => (
         <InboxItem
           key={email.id}
           email={email}
           onClick={handleEmailClick}
-          markAsRead={markAsRead}
-          handleDelete={handleDelete}
+          markAsRead={() => markAsRead(email.id)}
+          handleDelete={() => deleteEmail(email.id)}
         />
       ))}
     </div>
