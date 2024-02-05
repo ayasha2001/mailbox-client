@@ -8,6 +8,7 @@ import MailPage from "./pages/MailPage";
 import ComposePage from "./pages/ComposePage";
 import Inbox from "./components/mail/Inbox";
 import OpenedMail from "./components/mail/OpenedMail";
+import Sent from "./components/mail/Sent";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const router = createBrowserRouter([
@@ -22,16 +23,20 @@ const router = createBrowserRouter([
       {
         path: "/mail",
         element: <MailPage />,
-        children:[
+        children: [
           {
-            index: true,
+            index: "/mail/inbox",
             element: <Inbox />,
           },
           {
             path: "/mail",
             element: <OpenedMail />,
           },
-        ]
+          {
+            path: "/mail/sent",
+            element: <Sent />,
+          },
+        ],
       },
       {
         path: "/compose",

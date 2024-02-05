@@ -33,12 +33,12 @@ const Sidebar = () => {
         </Nav.Item>
 
         <Nav.Item>
-          <Nav.Link as={NavLink} to="/inbox" activeClassName="active">
+          <Nav.Link as={NavLink} to="/mail" activeClassName="active">
             <i className="fas fa-inbox"></i> Inbox
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link as={NavLink} to="/sent" activeClassName="active">
+          <Nav.Link as={NavLink} to="/mail/sent" activeClassName="active">
             <i className="fas fa-paper-plane"></i> Sent
           </Nav.Link>
         </Nav.Item>

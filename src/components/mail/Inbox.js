@@ -18,10 +18,11 @@ const Inbox = () => {
         throw new Error("Failed to fetch data");
       }
 
+      const userName = await localStorage.getItem("userName")
       const data = await response.json();
 
       const filteredData = Object.entries(data)
-        .filter(([key, item]) => item.recipientName === "test@gmail.com")
+        .filter(([key, item]) => item.recipientName === userName)
         .map(([id, item]) => ({ id, ...item }));
 
       console.log(filteredData);

@@ -5,7 +5,9 @@ const InboxItem = ({ email, onClick, markAsRead, handleDelete }) => {
   const handleItemClick = (event) => {
     event.stopPropagation();
     onClick(email);
-    markAsRead(email);
+    if (markAsRead) {
+      markAsRead(email);
+    }
   };
 
   const onDelete = (event) => {
@@ -20,7 +22,7 @@ const InboxItem = ({ email, onClick, markAsRead, handleDelete }) => {
         style={{ display: "flex", marginLeft: "130px", alignItems: "center" }}
         onClick={handleItemClick}
       >
-        {!email.read && (
+        {!email.read && markAsRead && (
           <span
             style={{
               display: "inline-block",
