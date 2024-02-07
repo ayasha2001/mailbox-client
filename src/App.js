@@ -1,12 +1,15 @@
 import './App.css';
 import LoginSignup from './components/auth/LoginSignup';
 import {Outlet} from "react-router-dom"
-import ComposeMail from './components/mail/ComposeMail';
+import { Provider } from "react-redux";
+import store from "./store/store";
 
 function App() {
   return (
     <div className="App">
+      <Provider store={store} >
       <Outlet/>
+      </Provider>
       {/* <ComposeMail/> */}
     </div>
   );

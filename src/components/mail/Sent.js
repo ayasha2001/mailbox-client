@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import InboxItem from "./InboxItem";
 import OpenedMail from "./OpenedMail";
+import { useNavigate } from "react-router-dom";
 
 const Sent = () => {
   const [emails, setEmails] = useState([]);
   const [selectedEmail, setSelectedEmail] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchEmails();
@@ -37,9 +39,16 @@ const Sent = () => {
     setSelectedEmail(email);
   };
 
+  const handleBackToInbox = () => {
+    setSelectedEmail(null);
+    navigate("/mail/sent");
+  };
+
   if (selectedEmail) {
     console.log(selectedEmail);
-    return <OpenedMail email={selectedEmail} />;
+    return (
+      <OpenedMail email={selectedEmail} onBackToInbox={handleBackToInbox} />
+    );
   }
   return (
     <div className="inbox-container">

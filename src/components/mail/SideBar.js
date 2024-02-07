@@ -3,13 +3,20 @@ import { NavLink } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import "./SideBar.css";
 import { useNavigate } from "react-router-dom";
+import useMailApi from "../../hooks/useMailApi";
 
 const Sidebar = () => {
   const nav = useNavigate();
+  const { unreadCount } = useMailApi();
 
   const handleClick = () => {
     nav("/compose");
   };
+
+  const handleInbox = () => {
+    nav("/mail");
+  };
+
   return (
     <Nav className="col-md-4 d-md-block bg-light sidebar">
       <div className="sidebar-sticky">
@@ -33,8 +40,8 @@ const Sidebar = () => {
         </Nav.Item>
 
         <Nav.Item>
-          <Nav.Link as={NavLink} to="/mail" activeClassName="active">
-            <i className="fas fa-inbox"></i> Inbox
+          <Nav.Link as={NavLink} activeClassName="active" onClick={handleInbox}>
+            <i className="fas fa-inbox"></i> Inbox {unreadCount}
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>

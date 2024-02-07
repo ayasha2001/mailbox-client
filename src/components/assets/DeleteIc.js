@@ -1,6 +1,6 @@
 import React from "react";
 
-const DeleteIc = ({handleDelete}) => {
+const DeleteIc = ({ handleDelete }) => {
   return (
     <div onClick={handleDelete}>
       <svg

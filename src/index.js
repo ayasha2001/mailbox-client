@@ -29,7 +29,7 @@ const router = createBrowserRouter([
             element: <Inbox />,
           },
           {
-            path: "/mail",
+            path: "/mail/open",
             element: <OpenedMail />,
           },
           {

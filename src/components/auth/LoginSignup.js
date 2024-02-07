@@ -3,6 +3,7 @@ import { Form, Button, Container, Alert, Row, Col } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
 import styles from "./LoginSignup.module.css";
 import { useSelector, useDispatch } from "react-redux";
+import { authActions } from "../../store/authSlice";
 
 const LoginSignup = () => {
   const [isSignup, setIsSignup] = useState(true);
@@ -10,12 +11,19 @@ const LoginSignup = () => {
   const [password, setPassword] = useState("");
   const [cnfPasword, setCnfPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   const nav = useNavigate()
+  const dispatch = useDispatch();
 
   let headingText = "SignUp";
   let subBtnText = "Sign up";
   let btnText = "Have an account? Login";
+
+  if(isAuthenticated){
+    nav("/mail")
+    return
+  }
 
   const handleSignUp = async () => {
     try {
@@ -84,6 +92,7 @@ const LoginSignup = () => {
       
       localStorage.setItem("token", jsonData.idToken);
       localStorage.setItem("userName", jsonData.email);
+      dispatch(authActions.login());
 
       nav("/mail");
       setEmail("");
